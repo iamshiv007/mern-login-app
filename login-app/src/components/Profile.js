@@ -7,14 +7,14 @@ import { profileValidate } from '../helper/validate'
 import convertToBase64 from '../helper/convert';
 import styles from '../styles/Username.module.css'
 import useFetch from '../hook/fetch.hook'
-import { useAuthStore } from '../store/store'
+// import { useAuthStore } from '../store/store'
 import { updateUser } from '../helper/helper'
 
 export const Profile = () => {
 
   const navigate = useNavigate()
   const [file, setFile] = useState()
-  const { username } = useAuthStore(state => state.auth)
+  // const { username } = useAuthStore(state => state.auth)
 
   const [{ isLoading, apiData, serverError }] = useFetch()
 

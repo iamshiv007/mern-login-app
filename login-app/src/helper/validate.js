@@ -57,6 +57,7 @@ function emailVerify(errors = {}, values){
 /** validate password */
 function passwordVerify(errors = {}, values){
 
+    // eslint-disable-next-line
     const specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
 
     if(!values.password){
