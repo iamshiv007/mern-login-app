@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import avatar from '../asssets/profile.png'
 import { useFormik } from 'formik'
 import Toast, { Toaster } from 'react-hot-toast'
 import { passwordValidate } from '../helper/validate'
 import useFetch from '../hook/fetch.hook'
 import { useAuthStore } from '../store/store'
-import { verifyPassword } from '../helper/helper'
+import { verifyPassword, generateOTP } from '../helper/helper'
 import styles from '../styles/Username.module.css'
 
 export const Password = () => {
@@ -50,6 +50,19 @@ export const Password = () => {
       }
     }
 
+    const recoverFun = () => {
+      const RecoverPromise = generateOTP(username)
+      Toast.promise(RecoverPromise, {
+        loading:"Sending..",
+        success:<b>OTP Sent</b>,
+        error: <b>OTP not sent</b>
+      })
+
+      RecoverPromise.then(res => {
+        navigate('/Recovery')
+      })
+    }
+
     if(isLoading) return <h1 className='text-2xl font-bold'>isLoading</h1>
     if(serverError) return <h1 className='text-xl text-red-500'>{serverError.message}</h1>
 
@@ -83,7 +96,7 @@ export const Password = () => {
           </div>
 
           <div className="text-center py-4">
-            <span className='text-gray-500' >Forgot Password? <NavLink className='text-red-500' to='/Recovery'>Recover Now</NavLink></span>
+            <span className='text-gray-500' >Forgot Password? <button type="button" className='text-red-500' onClick={recoverFun} >Recover Now</button></span>
           </div>
 
         </form>

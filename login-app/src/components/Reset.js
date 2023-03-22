@@ -1,13 +1,15 @@
 import React, { useState } from 'react'
 import { useFormik } from 'formik'
-import { Toaster } from 'react-hot-toast'
+import Toast, { Toaster } from 'react-hot-toast'
 import { passwordValidate } from '../helper/validate'
-
+import { resetPassword } from '../helper/helper'
 import styles from '../styles/Username.module.css'
+import { useAuthStore } from '../store/store'
 
 export const Reset = () => {
 
   const [inputType, setInputType] = useState("password")
+  const { username } = useAuthStore(state => state.auth)
 
     const formik = useFormik({
         initialValues:{
@@ -19,6 +21,16 @@ export const Reset = () => {
         validateOnChange:false,
         onSubmit : async values => {
             console.log(values)
+            const resetPromise  = resetPassword({username, password:values.password})
+            Toast.promise(resetPromise, {
+              loading:'Updating...',
+              success: <b>Password Updated Successfully</b>,
+              error: <b>Error</b>
+            })
+
+            resetPromise.then(res => {
+              console.log(res.data)
+            })
           }
     })
 

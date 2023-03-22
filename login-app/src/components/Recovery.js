@@ -1,12 +1,32 @@
-import React from 'react'
-// import { NavLink } from 'react-router-dom'
-// import { useFormik } from 'formik'
-import { Toaster } from 'react-hot-toast'
-// import { passwordValidate } from '../helper/validate'
-
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import Toast, { Toaster } from 'react-hot-toast'
+import { verifyOTP } from '../helper/helper'
+import { useAuthStore } from '../store/store'
 import styles from '../styles/Username.module.css'
 
 export const Recovery = () => {  
+
+  const navigate = useNavigate()
+  const { username } = useAuthStore(state => state.auth)
+  console.log(username)
+
+  const [code, setCode] = useState('')
+
+  const verifyOTPFun = (e) => {
+    e.preventDefault()
+    const VerifyPromise = verifyOTP({username, code})
+    // Toast.promise(VerifyPromise, {
+    //   loading :"Checking...",
+    //   success : <b>Verified</b>,
+    //   error : <b>Wrong OTP</b>
+    // })
+    
+      VerifyPromise.then(res => {
+        console.log(res.data)
+        navigate('/Reset')
+      })
+  }
 
   return (
     <div className="mx-auto w-fit">
@@ -31,9 +51,9 @@ export const Recovery = () => {
             <span className="text-sm text-gray-500 px-3">
               Enter 6 digit OTP sent to your email address
             </span>
-            <input className={styles.textbox} type="text" placeholder='OTP' />
+            <input onChange={(e) => setCode(e.target.value)} className={styles.textbox} type="text" placeholder='OTP' />
             </div>
-            <button className={styles.btn} type="submit">Sign In</button>
+            <button onClick={verifyOTPFun} className={styles.btn}>Sign In</button>
           </div>
 
           <div className="text-center py-4">
