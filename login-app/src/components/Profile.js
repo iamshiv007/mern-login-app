@@ -32,7 +32,6 @@ export const Profile = () => {
         validateOnChange:false,
         onSubmit : async values => {
           values = await Object.assign(values, { profile:file || apiData.profile ||  ""})
-            console.log(values)
             const updatePromise = updateUser(values)
             
             Toast.promise(updatePromise, {
@@ -46,7 +45,6 @@ export const Profile = () => {
     const onUpload = async e => {
       const base64 = await convertToBase64(e.target.files[0])
       setFile(base64)
-      console.log(base64)
     }
 
      // logout handler function

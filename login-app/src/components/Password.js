@@ -26,7 +26,6 @@ export const Password = () => {
         validateOnBlur:false,
         validateOnChange:false,
         onSubmit : async values => {
-            console.log(values)
             let loginPromise = verifyPassword({ username, password : values.password})
             Toast.promise(loginPromise, {
               loading :"Checking...",

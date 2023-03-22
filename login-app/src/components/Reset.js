@@ -20,7 +20,6 @@ export const Reset = () => {
         validateOnBlur:false,
         validateOnChange:false,
         onSubmit : async values => {
-            console.log(values)
             const resetPromise  = resetPassword({username, password:values.password})
             Toast.promise(resetPromise, {
               loading:'Updating...',

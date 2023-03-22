@@ -9,7 +9,6 @@ export const Recovery = () => {
 
   const navigate = useNavigate()
   const { username } = useAuthStore(state => state.auth)
-  console.log(username)
 
   const [code, setCode] = useState('')
 
@@ -23,7 +22,6 @@ export const Recovery = () => {
     // })
     
       VerifyPromise.then(res => {
-        console.log(res.data)
         navigate('/Reset')
       })
   }

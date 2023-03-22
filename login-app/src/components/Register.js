@@ -15,9 +15,9 @@ export const Register = () => {
 
     const formik = useFormik({
         initialValues:{
-          email:"doyol56239@cnogs.com",
-          username:"example123",
-          password:"admin@123"
+          email:"",
+          username:"",
+          password:""
         },
         validate:registerValidate,
         validateOnBlur:false,
@@ -30,14 +30,12 @@ export const Register = () => {
             success : <b>Register Successfully...!</b>,
             error : <b>Could not</b>
           })
-            console.log(values)
           }
     })
 
     const onUpload = async e => {
       const base64 = await convertToBase64(e.target.files[0])
       setFile(base64)
-      console.log(base64)
     }
 
   return (
